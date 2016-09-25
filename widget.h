@@ -19,8 +19,11 @@ public:
 private slots:
 	void on_pushButton_clicked();
 
+	void on_pushButton_Clipboard_clicked();
+
 private:
 	Ui::Widget *ui;
+	QString randomString;
 };
 
 #endif // WIDGET_H

@@ -1,6 +1,7 @@
 #include "widget.h"
 #include "ui_widget.h"
 #include <QTime>
+#include <QClipboard>
 
 Widget::Widget(QWidget *parent) :
 	QWidget(parent),
@@ -25,7 +26,8 @@ QString Widget::GetRandomString()
 	// `~!@#$%^&*()_-+={}[]\|:;"'<>,.?/
 	const int randomStringLength = ui->spinBox->value();
 
-	QString randomString;
+	randomString.clear();
+
 	for(int i=0; i<randomStringLength; ++i)
 	{
 		int index = qrand() % possibleCharacters.length();
@@ -38,4 +40,10 @@ QString Widget::GetRandomString()
 void Widget::on_pushButton_clicked()
 {
     ui->lineEdit->setText(GetRandomString());
+}
+
+void Widget::on_pushButton_Clipboard_clicked()
+{
+	QClipboard *clipboard = QApplication::clipboard();
+	clipboard->setText(randomString);
 }
