@@ -2,6 +2,7 @@
 #include "ui_widget.h"
 #include <QTime>
 #include <QClipboard>
+#include <QRandomGenerator>
 
 Widget::Widget(QWidget *parent) :
 	QWidget(parent),
@@ -19,7 +20,7 @@ QString Widget::GetRandomString()
 {
 	// initialize random seed:
 	QTime timmy(0, 0, 0);
-	qsrand(timmy.secsTo(QTime::currentTime()));
+    QRandomGenerator(timmy.secsTo(QTime::currentTime()));
 
 	QString possibleCharacters("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789");
 	if (ui->checkBox->isChecked()) possibleCharacters = ("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789`~!@#$%^&*()_-+={}[]:;<>,.?/");
@@ -30,7 +31,7 @@ QString Widget::GetRandomString()
 
 	for(int i=0; i<randomStringLength; ++i)
 	{
-		int index = qrand() % possibleCharacters.length();
+        int index = QRandomGenerator::global()->bounded(possibleCharacters.length());
 		QChar nextChar = possibleCharacters.at(index);
 		randomString.append(nextChar);
 	}
